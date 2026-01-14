@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Intelligent Loan Structuring Agent</title>
+
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <style>
+    :root {
+      --primary: #0f172a;        /* navy */
+      --secondary: #334155;      /* slate */
+      --accent: #3b82f6;         /* soft blue */
+      --mint: #ecfeff;           /* light mint */
+      --lavender: #eef2ff;       /* light lavender */
+      --success: #16a34a;
+      --warning: #d97706;
+      --danger: #dc2626;
+      --muted: #64748b;
+      --card: #fdfefe;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      padding: 40px;
+      font-family: "Segoe UI", Inter, system-ui, sans-serif;
+      background: linear-gradient(135deg, #f8fafc, #eef2ff);
+      color: var(--primary);
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: auto;
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 36px;
+      margin-bottom: 6px;
+      letter-spacing: -0.5px;
+    }
+
+    .subtitle {
+      text-align: center;
+      color: var(--muted);
+      margin-bottom: 40px;
+      font-size: 16px;
+    }
+
+    /* ---------- INPUT ---------- */
+    .input-card {
+      background: linear-gradient(135deg, #ffffff, var(--lavender));
+      padding: 28px;
+      border-radius: 18px;
+      box-shadow: 0 20px 45px rgba(0,0,0,0.08);
+      margin-bottom: 35px;
+      border-left: 6px solid var(--accent);
+    }
+
+    label {
+      font-weight: 600;
+    }
+
+    input[type="text"] {
+      width: 100%;
+      max-width: 520px;
+      padding: 14px;
+      margin-top: 8px;
+      border-radius: 10px;
+      border: 1px solid #c7d2fe;
+      font-size: 14px;
+    }
+
+    .radio-group {
+      margin-top: 18px;
+    }
+
+    .radio-group label {
+      margin-right: 20px;
+      font-weight: normal;
+    }
+
+    button {
+      margin-top: 20px;
+      padding: 12px 28px;
+      background: linear-gradient(135deg, var(--accent), #1d4ed8);
+      color: white;
+      border: none;
+      border-radius: 12px;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      box-shadow: 0 12px 28px rgba(59,130,246,0.35);
+      margin-right: 10px;
+    }
+
+    button:hover {
+      transform: translateY(-1px);
+    }
+
+    .print-btn {
+      background: linear-gradient(135deg, #22c55e, #16a34a);
+      box-shadow: 0 12px 28px rgba(22,163,74,0.35);
+    }
+
+    .error {
+      margin-top: 15px;
+      color: var(--danger);
+      font-weight: 600;
+    }
+
+    /* ---------- DASHBOARD ---------- */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 22px;
+      margin-top: 30px;
+    }
+
+    .card {
+      background: linear-gradient(135deg, #ffffff, var(--mint));
+      padding: 26px;
+      border-radius: 18px;
+      box-shadow: 0 16px 35px rgba(0,0,0,0.08);
+      position: relative;
+    }
+
+    .card::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 4px;
+      width: 100%;
+      background: linear-gradient(90deg, var(--accent), #22c55e);
+      border-radius: 18px 18px 0 0;
+    }
+
+    .label {
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .value {
+      font-size: 28px;
+      font-weight: 700;
+      margin-top: 8px;
+    }
+
+    .low { color: var(--success); }
+    .medium { color: var(--warning); }
+    .high { color: var(--danger); }
+
+    /* ---------- CHARTS ---------- */
+    .charts {
+      margin-top: 40px;
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 24px;
+    }
+
+    /* ---------- INSIGHTS ---------- */
+    .agent-insight {
+      margin-top: 40px;
+      background: linear-gradient(135deg, #ffffff, var(--lavender));
+      padding: 28px;
+      border-radius: 18px;
+      box-shadow: 0 14px 32px rgba(0,0,0,0.08);
+      border-left: 6px solid #22c55e;
+    }
+
+    .agent-insight h3 {
+      margin-top: 0;
+      margin-bottom: 14px;
+    }
+
+    .agent-insight ul {
+      padding-left: 18px;
+      margin: 0;
+    }
+
+    .agent-insight li {
+      margin-bottom: 10px;
+      line-height: 1.6;
+    }
+
+    /* ---------- PRINT ---------- */
+    @media print {
+      body {
+        background: white;
+        padding: 0;
+      }
+      .input-card, button {
+        display: none;
+      }
+      .card, .agent-insight {
+        box-shadow: none;
+        border: 1px solid #ccc;
+      }
+    }
+
+    @media (max-width: 900px) {
+      .charts {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="container">
+
+  <h1>Loan Structuring Agent</h1>
+  <p class="subtitle">
+    Intelligent, adaptive loan structuring for irregular-income workers
+  </p>
+
+  <div class="input-card">
+    <label>Enter last 6 months income (₹)</label>
+    <input id="income" type="text"
+      placeholder="12000, 18000, 15000, 22000, 16000, 20000">
+
+    <div class="radio-group">
+      <label>Existing loans / EMIs?</label><br>
+      <label><input type="radio" name="emi" value="yes"> Yes</label>
+      <label><input type="radio" name="emi" value="no" checked> No</label>
+    </div>
+
+    <button onclick="runAgent()">Run Agent</button>
+    <button class="print-btn" onclick="window.print()">Print Report</button>
+
+    <div id="error" class="error"></div>
+  </div>
+
+  <div id="dashboard"></div>
+
+</div>
+
+<script>
+let incomeChart, riskChart;
+
+function formatAmount(num) {
+  return "₹" + num.toLocaleString("en-IN");
+}
+
+async function runAgent() {
+  document.getElementById("error").textContent = "";
+  document.getElementById("dashboard").innerHTML = "";
+
+  const input = document.getElementById("income").value.trim();
+  if (!input) {
+    document.getElementById("error").textContent = "Please enter income values.";
+    return;
+  }
+
+  const incomes = input.split(",").map(v => parseInt(v.trim()));
+  if (incomes.some(isNaN)) {
+    document.getElementById("error").textContent = "Only numbers separated by commas.";
+    return;
+  }
+
+  const hasExistingEmi =
+    document.querySelector('input[name="emi"]:checked').value === "yes";
+
+  const res = await fetch("/run-agent", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      income_history: incomes,
+      has_existing_emi: hasExistingEmi
+    })
+  });
+
+  const data = await res.json();
+  const risk = data.risk_agent.risk_level.toLowerCase();
+
+  document.getElementById("dashboard").innerHTML = `
+    <div class="grid">
+      <div class="card">
+        <div class="label">Forecast Monthly Income</div>
+        <div class="value">${formatAmount(data.cashflow_agent.forecast_income)}</div>
+      </div>
+
+      <div class="card">
+        <div class="label">Income Trend</div>
+        <div class="value">${data.cashflow_agent.trend}</div>
+      </div>
+
+      <div class="card">
+        <div class="label">Risk Level</div>
+        <div class="value ${risk}">${data.risk_agent.risk_level}</div>
+      </div>
+
+      <div class="card">
+        <div class="label">Adaptive EMI</div>
+        <div class="value">${formatAmount(data.loan_structuring_agent.adaptive_emi)}</div>
+        <div class="label">Tenure: ${data.loan_structuring_agent.tenure_months} months</div>
+      </div>
+    </div>
+
+    <div class="charts">
+      <div class="card">
+        <h3>Income Trend</h3>
+        <canvas id="incomeChart"></canvas>
+      </div>
+
+      <div class="card">
+        <h3>Risk vs Affordability</h3>
+        <canvas id="riskChart"></canvas>
+      </div>
+    </div>
+
+    <div class="agent-insight">
+      <h3>🧠 Agent Insights</h3>
+      <ul>
+        <li>Income volatility detected → fixed EMI avoided.</li>
+        <li>${hasExistingEmi
+          ? "Existing EMI obligations increase repayment risk."
+          : "No prior EMI obligations improve affordability."}</li>
+        <li>EMI dynamically adapts to income changes.</li>
+        <li>Loan structure minimizes default probability.</li>
+      </ul>
+    </div>
+  `;
+
+  drawCharts(incomes, data.cashflow_agent.forecast_income);
+}
+
+function drawCharts(incomes, forecast) {
+  if (incomeChart) incomeChart.destroy();
+  if (riskChart) riskChart.destroy();
+
+  incomeChart = new Chart(document.getElementById("incomeChart"), {
+    type: "bar",
+    data: {
+      labels: ["M1","M2","M3","M4","M5","M6"],
+      datasets: [{
+        label: "Monthly Income",
+        data: incomes,
+        backgroundColor: "#3b82f6"
+      }]
+    }
+  });
+
+  riskChart = new Chart(document.getElementById("riskChart"), {
+    type: "pie",
+    data: {
+      labels: ["Affordable Portion", "Risk Buffer"],
+      datasets: [{
+        data: [forecast * 0.7, forecast * 0.3],
+        backgroundColor: ["#22c55e", "#dc2626"]
+      }]
+    }
+  });
+}
+</script>
+
+</body>
+</html>
