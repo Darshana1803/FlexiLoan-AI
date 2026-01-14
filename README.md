@@ -1,5 +1,8 @@
 FlexiLoan AI
 (Intelligent Loan Structuring Agent for Irregular-Income Workers)
+
+
+
 📌 What is the Project?
 
 FlexiLoan AI is an agent-based intelligent loan structuring system designed for workers with irregular or volatile income such as gig workers, freelancers, and informal earners.
