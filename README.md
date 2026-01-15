@@ -1,91 +1,147 @@
 FlexiLoan AI
 (Intelligent Loan Structuring Agent for Irregular-Income Workers)
 
+📌 Problem Statement
 
+A large segment of the workforce—such as gig workers, daily wage earners, and freelancers do not have fixed monthly incomes. Traditional loan systems are designed for salaried individuals and fail to adapt to income volatility, leading to:
 
-📌 What is the Project?
+* Poor loan eligibility assessment
+* High EMI stress
+* Increased loan defaults
+* Financial exclusion of irregular-income workers
 
-FlexiLoan AI is an agent-based intelligent loan structuring system designed for workers with irregular or volatile income such as gig workers, freelancers, and informal earners.
+There is a need for an adaptive, intelligent loan system that can dynamically analyze income patterns and structure loans responsibly.
 
-Traditional loan systems use fixed EMI schedules that do not adapt to income fluctuations. This project addresses that limitation by using autonomous AI agents to dynamically structure loan repayment plans based on income patterns, repayment risk, and existing financial obligations.
+🚀 Solution Description
 
-⚙️ How the Project Works
+FlexiLoan AI is an agent-based intelligent loan structuring system that dynamically analyzes income patterns and recommends adaptive loan structures.
 
-The system follows a multi-agent workflow, where each agent performs a specialized task and collectively makes intelligent loan decisions.
+The system simulates agentic behavior by dividing responsibilities across multiple AI agents:
 
-🔹 Step 1: Income Input
+* Income forecasting
+* Risk evaluation
+* EMI structuring
+* Monitoring & adjustment
 
-The user enters the last six months of income and specifies whether they have any existing loans or EMIs.
+Based on recent income trends and existing EMI obligations, the agent generates:
 
-🔹 Step 2: Cashflow Forecasting Agent
+* Risk-aware EMI recommendations
+* Flexible loan tenure
+* Clear, explainable decisions
 
-This agent analyzes recent income history to:
+The solution is exposed via a FastAPI backend and visualized through an interactive web-based dashboard.
 
-Forecast average monthly income
+🧠 Agent Workflow (Agentic Architecture)
 
-Measure income volatility
+1. Cashflow Forecasting Agent
 
-Determine income stability and trend
+* Analyzes last 6 months income
+* Detects:
+  > Average forecast income
+  > Income volatility
+  > Stability score
+  > Income trend (Increasing / Decreasing / Fluctuating)
 
-🔹 Step 3: Risk Evaluation Agent
+2. Risk Evaluation Agent
 
-Based on forecasted income, existing EMIs, and income trend, this agent:
+* Calculates EMI-to-income ratio
+* Adjusts risk based on:
+  > Existing loan / EMI obligations
+  > Income trend
+* Outputs:
+  > Risk score
+  > Risk level (Low / Medium / High)
+  > Human-readable risk explanation
 
-Calculates EMI-to-income ratio
+3. Loan Structuring Agent
 
-Assigns a repayment risk level (Low / Medium / High)
+* Generates adaptive EMI and tenure based on risk level
+* Applies conservative adjustments if existing EMIs exist
+* Ensures EMI never exceeds safe income thresholds
+* Outputs:
+  > Adaptive EMI
+  > Loan tenure
+  > Policy reasoning
 
-🔹 Step 4: Loan Structuring Agent
+4. Monitoring Agent
 
-Using the risk assessment, this agent:
+* Continuously evaluates affordability
+* Suggests EMI increase/reduction if income changes
 
-Determines an adaptive EMI amount
+🖥️ System Architecture
 
-Adjusts loan tenure dynamically
+Frontend (HTML + CSS + Chart.js)
+        ↓
+FastAPI Backend
+        ↓
+Agent Pipeline
+(Cashflow → Risk → Structuring)
 
-Ensures EMI remains affordable under income fluctuations
+🛠️ Tech Stack Used
 
-🔹 Step 5: Monitoring & Adjustment Agent
-
-The monitoring agent continuously evaluates affordability and suggests EMI adjustments to prevent financial stress or loan default.
-
-🔹 Step 6: Visualization & Report
-
-The system displays:
-
-Forecasted income
-
-Risk assessment
-
-Adaptive EMI & tenure
-
-Income trend (bar chart)
-
-Risk vs affordability (pie chart)
-
-Printable loan summary
-
-🛠️ Technologies Used
 Backend
 
-Python
-
-FastAPI – API framework for agent orchestration
-
-Pydantic – Input validation and data modeling
+Python 3.11+
+FastAPI – API framework
+Pydantic – Request validation
+Uvicorn – ASGI server
 
 Frontend
 
-HTML
-
-CSS
-
+HTML5
+CSS3
 JavaScript
+Chart.js – Bar & Pie charts
 
-Chart.js – Data visualization (bar & pie charts)
+Deployment (Recommended)
 
-Development & Deployment
+* Backend: Render / Railway
+* Frontend: Vercel / Netlify
+* Version Control: GitHub
 
-Git & GitHub – Version control
+⚙️ Setup and Execution Steps
 
-Uvicorn – ASGI server
+1. Clone the Repository
+
+git clone https://github.com/<your-username>/FlexiLoan-AI.git
+cd FlexiLoan-AI
+
+2. Create & Activate Virtual Environment (Windows)
+
+python -m venv venv
+.\venv\Scripts\activate
+
+3. Install Dependencies
+
+pip install fastapi uvicorn pydantic
+
+4. Run the Backend Server
+
+python -m uvicorn backend.main:app --reload
+
+5. Open the Frontend
+
+* Open `frontend/index.html` directly in a browser
+* Access UI via backend root endpoint:
+
+📊 Features Demonstrated
+
+* Agent-based decision making
+* Adaptive EMI calculation
+* Risk-aware loan structuring
+* Interactive dashboard with charts
+* Printable loan recommendation report
+* Explainable AI outputs
+
+📌 Future Enhancements
+
+* Real-time income monitoring
+* Credit score integration
+* Bank API connectivity
+* Mobile app interface
+* Multi-loan portfolio analysis
+
+👤 Author
+Darshana Ramesh
+M.Tech CSE (Intergrated programme)
+Sri Ramakrishna Engineering College
