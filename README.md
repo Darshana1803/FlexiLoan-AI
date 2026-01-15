@@ -35,8 +35,8 @@ The solution is exposed via a FastAPI backend and visualized through an interact
 
 1. Cashflow Forecasting Agent
 
-* Analyzes last 6 months income
-* Detects:
+  * Analyzes last 6 months income
+  * Detects:
   > Average forecast income
   > Income volatility
   > Stability score
@@ -44,85 +44,85 @@ The solution is exposed via a FastAPI backend and visualized through an interact
 
 2. Risk Evaluation Agent
 
-* Calculates EMI-to-income ratio
-* Adjusts risk based on:
+  * Calculates EMI-to-income ratio
+  * Adjusts risk based on:
   > Existing loan / EMI obligations
   > Income trend
-* Outputs:
+  * Outputs:
   > Risk score
   > Risk level (Low / Medium / High)
   > Human-readable risk explanation
 
 3. Loan Structuring Agent
 
-* Generates adaptive EMI and tenure based on risk level
-* Applies conservative adjustments if existing EMIs exist
-* Ensures EMI never exceeds safe income thresholds
-* Outputs:
+  * Generates adaptive EMI and tenure based on risk level
+  * Applies conservative adjustments if existing EMIs exist
+  * Ensures EMI never exceeds safe income thresholds
+  * Outputs:
   > Adaptive EMI
   > Loan tenure
   > Policy reasoning
 
 4. Monitoring Agent
 
-* Continuously evaluates affordability
-* Suggests EMI increase/reduction if income changes
+  * Continuously evaluates affordability
+  * Suggests EMI increase/reduction if income changes
 
 🖥️ System Architecture
 
-Frontend (HTML + CSS + Chart.js)
-        ↓
-FastAPI Backend
-        ↓
-Agent Pipeline
-(Cashflow → Risk → Structuring)
+  Frontend (HTML + CSS + Chart.js)
+                ↓
+         FastAPI Backend
+                ↓
+         Agent Pipeline
+  (Cashflow → Risk → Structuring)
 
 🛠️ Tech Stack Used
 
 Backend
 
-Python 3.11+
-FastAPI – API framework
-Pydantic – Request validation
-Uvicorn – ASGI server
+ Python 3.11+
+ FastAPI – API framework
+ Pydantic – Request validation
+ Uvicorn – ASGI server
 
 Frontend
 
-HTML5
-CSS3
-JavaScript
-Chart.js – Bar & Pie charts
+ HTML5
+ CSS3
+ JavaScript
+ Chart.js – Bar & Pie charts
 
 Deployment (Recommended)
 
-* Backend: Render / Railway
-* Frontend: Vercel / Netlify
-* Version Control: GitHub
+ * Backend: Render / Railway
+ * Frontend: Vercel / Netlify
+ * Version Control: GitHub
 
 ⚙️ Setup and Execution Steps
 
 1. Clone the Repository
 
-git clone https://github.com/<your-username>/FlexiLoan-AI.git
-cd FlexiLoan-AI
+   git clone https://github.com/<your-username>/FlexiLoan-AI.git
+   cd FlexiLoan-AI
 
 2. Create & Activate Virtual Environment (Windows)
 
-python -m venv venv
-.\venv\Scripts\activate
+   python -m venv venv
+   .\venv\Scripts\activate
 
 3. Install Dependencies
 
-pip install fastapi uvicorn pydantic
+   pip install fastapi uvicorn pydantic
 
 4. Run the Backend Server
 
-python -m uvicorn backend.main:app --reload
+   python -m uvicorn backend.main:app --reload
 
 5. Open the Frontend
 
-* Open `frontend/index.html` directly in a browser
-* Access UI via backend root endpoint:
+*  Open `frontend/index.html` directly in a browser
+*  Access UI via backend root endpoint:
 
 📊 Features Demonstrated
 
@@ -143,5 +143,7 @@ python -m uvicorn backend.main:app --reload
 
 👤 Author
 Darshana Ramesh
+
 M.Tech CSE (Intergrated programme)
+
 Sri Ramakrishna Engineering College
